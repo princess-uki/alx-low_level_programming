@@ -1,8 +1,11 @@
-#ifndef _LISTS_
-#define _LISTS_
+#ifndef LIST_H
+#define LIST_H
+#define TABLE_SIZE 100000
 
 #include <stdio.h>
 #include <stdlib.h>
+
+typedef unsigned long int uli;
 
 /**
  * struct listint_s - singly linked list
@@ -19,17 +22,31 @@ typedef struct listint_s
 } listint_t;
 
 /**
- * struct listp_s - singly linked list
- * @p: pointers of nodes
+ * struct entry_t - singly linked list
+ * @key: unsigned long integer
+ * @value: unsigned long integer
  * @next: points to the next node
  *
- * Description: singly linked list of pointers
+ * Description: singly linked list node structure
+ * for Hash table
  */
-typedef struct listp_s
+typedef struct entry_t
 {
-	void *p;
-	struct listp_s *next;
-} listp_t;
+	unsigned long int key;
+	unsigned long int value; /* The address */
+	struct entry_t *next;
+} entry_t;
+
+/**
+ * struct ht_t - hash table
+ * @entries: Array of entries of the table
+ *
+ * Description: Hash table structure
+ */
+typedef struct ht_t
+{
+	entry_t **entries;
+} ht_t;
 
 size_t print_listint(const listint_t *h);
 size_t listint_len(const listint_t *h);
@@ -47,4 +64,4 @@ size_t print_listint_safe(const listint_t *head);
 size_t free_listint_safe(listint_t **h);
 listint_t *find_listint_loop(listint_t *head);
 
-#endif
+#endif /* LIST_H */
